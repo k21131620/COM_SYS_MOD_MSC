@@ -1,0 +1,207 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{url,amsmath,graphicx,amssymb,booktabs}
+\usepackage[top=1.5cm, bottom=1.5cm, left=2.5cm, right=2.5cm]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+
+\title{7CCMCS00 - Foundations of Complex Systems Modelling}
+\author{21131620}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Week 1}
+\subsection{Linear Algebra}
+\subsubsection{Fields}
+A field is a set $\mathbb{F}$ endowed with two binary operations, a multiplication $\bullet$ and an addition $+$. Both these operations map an ordered pair of elements of $\mathbb{F}$ to another element of $\mathbb{F}$, $\mathbb{F}\times\mathbb{F}\to\mathbb{F}$. For each triplet $a,\,b,\,c\in\mathbb{F}$:
+\begin{itemize}
+    \item \textbf{Associativity:} For both $\circ=+$ and $\circ=\bullet$, then $a\circ (b\circ c) = (a\circ b)\circ c$. 
+    \item \textbf{Commutativity:} For both $\circ = +$ and $\circ = \bullet$, then $a\circ b=b\circ a$.
+    \item \textbf{Identities:} There exists two special elements in $\mathbb{F}$, zero ($0$) and one ($1$), such that $a+0=a$ and $a\bullet1=a$.
+    \item \textbf{Inverse:} For each $a\in\mathbb{F}$ there is an element, denoted by $-a\in\mathbb{F}$, such that $a+(-a)=0$. Similarly for each $a\in\mathbb{F}\setminus{0}$, there is an element $\frac{1}{a}\in\mathbb{F}$ such that $a\bullet\frac{1}{a}=1$. 
+    \item \textbf{Distributivity:} $a\bullet(b+c) = a\bullet b + a\bullet c$ shows distributivity of $\bullet$ over $+$.
+\end{itemize}
+
+\subsubsection{Matrices: definitions}
+A matrix $\mathbf{A}$ is an $m\times n$-array of scalars $A_{ij}\equiv \left[ \mathbf{A} \right]_{ij}$ from a given field $\mathbb{F}$, with $i=1,\,\ldots,\,n$ and $j=1,\,\ldots,\,m$.
+\begin{equation}
+\mathbf{A} = \begin{pmatrix} A_{11} & \cdots & A_{1m} \\
+\vdots & \ddots & \vdots \\
+A_{n1} & \cdots & A_{nm}\end{pmatrix} \in \mathcal{M}_{n\times m}(\mathbb{F}).
+\end{equation}
+\begin{itemize}
+    \item Given $\mathbf{A}$, its transpose matrix $\mathbf{A}^T$ is such that $[\mathbf{A}^T]_{ij}=A_{ji}$.
+    \item If $n=m$ then $\mathbf{A}$ is a square matrix.
+    \item If $\mathbb{F}=\mathbb{R}$ and $\mathbf{A}^T = \mathbf{A}$, the matrix $\mathbf{A}$ is real symmetric.
+    \item If $\mathbb{F}=\mathbb{C}$, its Hermitian transpose $\mathbf{A}^\dagger$ has $[\mathbf{A}^\dagger]_{ij} = \overline{A}_{ji}$.
+    \item If $\mathbb{F}=\mathbb{C}$ and $\mathbf{A}^\dagger = \mathbf{A}$, the matrix $\mathbf{A}$ is Hermitian.
+    \item We call vector matrices $\mathbf{v}\in\mathcal{M}_{n\times1}(\mathbb{F})\equiv \mathbb{F}^n$.
+\end{itemize}
+As an example:
+\begin{equation}
+    \mathbf{A} = \begin{pmatrix} 1 & -i & 2 \\ 3i & 5 & 8i \end{pmatrix} \to \mathbf{A}^T=\begin{pmatrix} 1 & 3i \\ -i & 5 \\ 2 & 8i \end{pmatrix} \to \mathbf{A}^\dagger=\begin{pmatrix} 1 & -3i \\ i & 5 \\ 2 & -8i \end{pmatrix}. 
+\end{equation}
+A square matrix $\mathbf{A}$ is diagonal if $A_{ij}=0$, $i\neq j$.
+\begin{equation}
+    \mathbf{A} = \begin{pmatrix} A_{11} & 0 & \cdots & 0 \\ 0 & A_{22} & \cdots & 0 \\ \vdots & \vdots & \ddots & 0 \\ 0 & \cdots & 0 & A_{nn} \end{pmatrix} = \text{diag}(A_{11},\,A_{22},\ldots,\,A_{nn}).
+\end{equation}
+The matrix $\mathbf{I}_n = \text{diag}(A_{11},\,A_{22},\ldots,\,A_{nn})$ is special and called the identity matrix.
+
+\subsubsection{Matrix operations}
+If $\mathbf{A},\,\mathbf{B}\in\mathcal{M}_{n\times m}(\mathbb{F})$, their sum $\mathbf{C}=\mathbf{A}+\mathbf{B}$ is an element-wise operation. For example:
+\begin{align}
+    \mathbf{A}+\mathbf{B} &= \begin{pmatrix} A_{11} & \cdots & A_{1m} \\
+\vdots & \ddots & \vdots \\
+A_{n1} & \cdots & A_{nm}\end{pmatrix} + \begin{pmatrix} B_{11} & \cdots & B_{1m} \\
+\vdots & \ddots & \vdots \\
+B_{n1} & \cdots & B_{nm}\end{pmatrix}\\
+&= \begin{pmatrix} A_{11}+B_{11} & \cdots & A_{1m}+B_{1m} \\
+\vdots & \ddots & \vdots \\
+A_{n1}+B_{n1} & \cdots & A_{nm}+B_{nm}\end{pmatrix} \equiv \mathbf{C}\in\mathcal{M}_{n\times m}(\mathbb{F}).
+\end{align}
+The product $\mathbf{C} = \mathbf{AB}$ is instead much more involved. If $\mathbf{A}\in\mathcal{M}_{n\times m}(\mathbb{F})$, $\mathbf{B}\in\mathcal{M}_{m\times n^\prime}(\mathbb{F})$,
+\begin{align}
+    \mathbf{AB} &= \begin{pmatrix} A_{11} & \cdots & A_{1m} \\
+\vdots & \ddots & \vdots \\
+A_{n1} & \cdots & A_{nm}\end{pmatrix}\begin{pmatrix} B_{11} & \cdots & B_{1m} \\
+\vdots & \ddots & \vdots \\
+B_{n1} & \cdots & B_{nm}\end{pmatrix} \\
+&= \begin{pmatrix} \sum_k A_{1k}B_{k1} & \cdots & \sum_k A_{1k}B_{kn^\prime} \\
+\vdots & \ddots & \vdots \\
+\sum_k A_{nk}B_{k1} & \cdots & \sum_k A_{nk}B_{kn^\prime} \end{pmatrix} \equiv \mathbf{C}.
+\end{align}
+Observe that if $\mathbf{C}=\mathbf{AB}$, the matrix $\mathbf{BA}$ is not defined unless $\mathbf{A}$ and $\mathbf{B}$ are both squared of the same dimension. Even in this case, however, $\mathbf{AB}\neq\mathbf{BA}$ in general.\\
+If $\mathbf{A}\in\mathcal{M}_{n\times m}(\mathbb{F})$, we have that $\mathbf{I}_n\mathbf{A} = \mathbf{A}\mathbf{I}_m = \mathbf{A}$.
+
+
+\subsubsection{Linear Systems}
+Suppose we have to solve:
+\begin{equation}
+    \begin{cases}
+        A_{11}x_1 + A_{12}x_2 + \ldots + A_{1n}x_n = & b_1 \\
+        A_{21}x_1 + A_{22}x_2 + \ldots + A_{2n}x_n = & b_2 \\
+        \vdots & \vdots \\
+        A_{n1}x_1 + A_{n2}x_2 + \ldots + A_{nn}x_n = & b_n
+    \end{cases}.
+\end{equation}
+This can be written as:
+\begin{equation}
+    \begin{pmatrix} A_{11} & \cdots & A_{1m} \\
+        \vdots & \ddots & \vdots \\
+        A_{n1} & \cdots & A_{nm}
+    \end{pmatrix}\begin{pmatrix}
+        x_1 \\ \vdots \\ x_n
+    \end{pmatrix} = \begin{pmatrix}
+        b_1 \\ \vdots \\ v_n
+    \end{pmatrix}.
+\end{equation}
+
+
+\subsubsection{The determinant}
+\begin{definition}
+    Given a matrix $\mathbf{A}\in\mathcal{M_{n\times n}}(\mathbb{F})$, its determinant is given by the so-called Laplace expansion along any row $i$:
+    \begin{equation}
+        \text{det}\mathbf{A} = \sum_{j=1}^n (-1)^{i+j}A_{ij}\text{det}\mathbf{A^{(i^\prime j^\prime)}}.
+    \end{equation}
+    Here, the matrix $\mathbf{A}^{(i^\prime j^\prime)}$ is the $(n-1)\times(n-1)$-matrix obtained by removing the $i$th row and $j$th column from $\mathbf{A}$, and $\text{det}\mathbf{A}^{(i^\prime j^\prime)}$-minor of $\mathbf{A}$.
+\end{definition}
+If $\text{det}\mathbf{A} = 0$ then $\mathbf{A}$ is singular.
+
+
+\subsubsection{Geometric interpretation of the determinant}
+It is easily seen that the absolute value of the determinant of $\mathbf{A}$ is the volume of an $n$-dimensional parallelepid built from the column vectors of the matrix $\mathbf{A}$.
+
+
+\subsubsection{Properties of the determinant}
+\begin{enumerate}
+    \item If $\mathbf{A}=\text{diag}(\lambda_1,\ldots,\,\lambda_n)$ then $\text{det}\mathbf{A}=\prod_{i=1}^n\lambda_i$.
+    \item $\text{det}\mathbf{A} = \text{det}\mathbf{A}^T$.
+    \item $\text{det}c\mathbf{A} = c^n\text{det}\mathbf{A}$.
+    \item If $A_{ik} = \lambda U_k + V_k$;
+    \begin{align}
+        \text{det}\mathbf{A} &= \text{det}\begin{pmatrix}
+            A_{11} & \cdots & A_{1k} & \cdots & A_{1n} \\
+            \vdots &  & \vdots &  & \vdots \\
+            A_{n1} & \cdots & A_{nk} & \cdots & A_{nn}
+        \end{pmatrix} \\
+        &= \lambda\text{ det}\begin{pmatrix}
+            A_{11} & \cdots & U_1 & \cdots & A_{1n} \\
+            \vdots &  & \vdots &  & \vdots \\
+            A_{n1} & \cdots & U_n & \cdots & A_{nn}
+        \end{pmatrix} + \text{det}\begin{pmatrix}
+            A_{11} & \cdots & V_k & \cdots & A_{1n} \\
+            \vdots &  & \vdots &  & \vdots \\
+            A_{n1} & \cdots & V_n & \cdots & A_{nn}
+        \end{pmatrix}.
+    \end{align}
+    It is said that the determinant is multilinear.
+    \item $\text{det}\mathbf{AB} = \text{det}\mathbf{A}\text{det}\mathbf{B}$.
+    \item If we swap two columns (or rows) the determinant gets a minus sign: the determinant is alternating.\\
+    This also means if $\text{det}\mathbf{A}$ has two identical columns then $\text{det}\mathbf{A}=0$.
+\end{enumerate}
+
+
+\subsubsection{Inverse of a square matrix}
+A square matrix $\mathbf{A}\in\mathcal{M}_{n\times n}(\mathbb{C})$ is invertible if there exists a matrix $\mathbf{\hat{A}}$ such that
+\begin{equation}
+    \mathbf{\hat{A}}\mathbf{A} = \mathbf{A}\mathbf{\hat{A}} = \mathbf{I}_n.
+\end{equation}
+We denote $\mathbf{B}=\mathbf{A}^{-1}$. If it exists, this inverse is unique. Moreover,
+\begin{equation}
+    (\mathbf{AB})^{-1} = \mathbf{B}^{-1}\mathbf{A}^{-1}.
+\end{equation}
+\begin{theorem}
+    \textbf{Inverse of a square matrix:} Let $\mathbf{A}\in\mathcal{M}_{n\times n}(\mathbb{F})$ and let $\mathbf{C}$ its matrix of cofactors. Then, if $\text{det}(\mathbf{A})\neq 0$, the inverse of $\mathbf{A}$ exists and is given by
+    \begin{equation}
+        \mathbf{A}^{-1} = \frac{1}{\text{det}\mathbf{A}}\mathbf{C}^T.
+    \end{equation}
+    Use $n=2$ as a simple example.
+\end{theorem}
+
+
+\subsubsection{Trace of a square matrix}
+For a square matrix we define its trace by
+\begin{equation}
+    \text{tr}\mathbf{A} = \sum_{i=1}^nA_{ii},\,\mathbf{A}\in\mathcal{M}_{n\times n}(\mathbb{F}).
+\end{equation}
+\begin{theorem}
+    \textbf{Trace and determinant:} Let $\mathbf{A}\in\mathcal{M}_{n\times n}(\mathbb{C})$. Then 
+    \begin{equation}
+        \text{det}\left(e^{\mathbf{A}}\right) = e^{\text{tr}\mathbf{A}}.
+    \end{equation}
+    In this expression,
+    \begin{equation}
+        e^{\mathbf{A}} = \sum_{k=0}^\infty \frac{1}{k!}\mathbf{A}^k.
+    \end{equation}
+\end{theorem}
+
+
+\subsubsection{Vector spaces}
+Let us assume that $\mathbb{F}=\mathbb{R}$ or $\mathbb{F} = \mathbb{C}$ and let us focus on vectors $\mathbf{v}\in\mathbb{F}^n\equiv V$.\\
+The set $V$ is a vector space over $\mathbb{F}$ i.e., is a set of elements such that, given $\mathbf{u},\,\mathbf{v}\in\mathbb{F}^n$, then $\alpha\mathbf{v}+\beta\mathbf{u}\in\mathbb{F}$ for any $\alpha,\,\beta\in\mathbb{F}$. In particular, $V$ contains the zero vector.\\
+Given a set of $K$ vectors $\{\mathbf{v}_k\}_{k=1,\ldots,\,K}$, its span is the set
+\begin{equation}
+    \text{Span}[\{\mathbf{v}_k\}_k]=\left\{ \sum_{k=1}^K \alpha_k\mathbf{v}_k:\, \alpha_k\in\mathbb{F}\,\forall k \right\}.
+\end{equation}
+The set of $K$ vectors $\{\mathbf{v}_k\}_{k=1}^K$ is said to be linearly independent if the equation
+\begin{equation}
+    \sum_k \alpha_k\mathbf{v}_k = \mathbf{0}\implies\alpha_k=0\,\forall k
+\end{equation}
+holds true.\\
+A basis is a set $\{\mathbf{e}_k\}_k$ of linearly independent vectors which is maximal. This also means that
+\begin{equation}
+    V = \text{Span}[\{\mathbf{e}_k\}_k].
+\end{equation}
+The cardinalities of a basis $V$ is the dimension of $V$, and all basis have the same cardinality (if finite).
+
+
+\end{document}
